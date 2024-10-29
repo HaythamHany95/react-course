@@ -1,9 +1,15 @@
-import React from 'react'
-import NavBar from './components/NavBar';
-import Hero from './components/Hero';
-import HomeCards from './components/HomeCards';
-import JobsListings from './components/JobsListings';
-import ViewAllJobs from './components/ViewAllJobs';
+// import {
+//   Route,
+//   createBrowserRouter,
+//   createRoutesFromElements,
+//   RouterProvider,
+// } from "react-router-dom";
+
+import NavBar from "./components/NavBar";
+import Hero from "./components/Hero";
+import HomeCards from "./components/HomeCards";
+import JobsListings from "./components/JobsListings";
+import ViewAllJobs from "./components/ViewAllJobs";
 
 const App = () => {
   return (
@@ -15,6 +21,6 @@ const App = () => {
       <ViewAllJobs />
     </div>
   );
-}
+};
 
 export default App;
