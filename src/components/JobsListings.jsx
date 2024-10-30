@@ -5,9 +5,7 @@ import Spinner from "./Spinner";
 
 const JobsListings = ({ isHome = false }) => {
   //   const recentJobs = jobs.slice(0, 3);
-  const linkUrl = isHome
-    ? "http://localhost:3001/jobs?_limit=3"
-    : "http://localhost:3001/jobs";
+  const linkUrl = isHome ? "api/jobs?_limit=3" : "api/jobs";
 
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
