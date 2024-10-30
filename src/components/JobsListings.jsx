@@ -1,10 +1,33 @@
 /* eslint-disable react/prop-types */
-import jobs from "../jobs.json";
 import JobListItem from "./JobListItem";
+import { useState, useEffect } from "react";
+import Spinner from "./Spinner";
 
 const JobsListings = ({ isHome = false }) => {
   //   const recentJobs = jobs.slice(0, 3);
-  const JobsListings = isHome ? jobs.slice(0, 3) : jobs;
+  const linkUrl = isHome
+    ? "http://localhost:3001/jobs?_limit=3"
+    : "http://localhost:3001/jobs";
+
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchJobs = async () => {
+    try {
+      const res = await fetch(linkUrl);
+      const data = await res.json();
+
+      setJobs(data);
+    } catch (error) {
+      console.log(`error fetching jobs ${error}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchJobs();
+  }, []);
 
   return (
     <section className="bg-blue-50 px-4 py-10">
@@ -13,11 +36,15 @@ const JobsListings = ({ isHome = false }) => {
           {isHome ? " Recent Jobs" : "Browse Jobs"}
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {JobsListings.map((job) => (
-            <JobListItem key={job.id} job={job} />
-          ))}
-        </div>
+        {loading ? (
+          <Spinner loading={loading} />
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {jobs.map((job) => (
+              <JobListItem key={job.id} job={job} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
